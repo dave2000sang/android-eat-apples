@@ -90,6 +90,14 @@ def game_loop():
             apple_starty = 0 - apple_starty
             apple_startx = random.randrange(0, display_width)
 
+        if y < apple_starty + apple_radius:
+            print ('fuck')
+
+            if x > apple_startx and x < apple_startx + apple_radius or x + jet_width > apple_startx and x + jet_width < apple_startx + apple_radius:
+                print ('gay')
+                crash()
+
+
         pygame.display.update()
         clock.tick(60)
 
