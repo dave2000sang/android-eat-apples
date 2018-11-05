@@ -1,4 +1,5 @@
 import pygame
+import time
 pygame.init()
 
 display_width = 800
@@ -21,11 +22,21 @@ jetImg = pygame.image.load('fighterjet.png')
 def jet(x, y):
     gameDisplay.blit(jetImg, (x, y))
 
+def text_objects(text, font):
+    textSurface = font.render(text, True, red)
+    return textSurface, textSurface.get_rect()
+
 def message_display(text):
     largeText = pygame.font.Font('freesansbold.ttf', 115)
     TextSurf, TextRect = text_objects(text, largeText)
     TextRect.center =  ((display_width /2), (display_height/2))
     gameDisplay.blit(TextSurf, TextRect)
+
+    pygame.display.update()
+
+    time.sleep(2)
+
+    game_loop()
 
 def crash():
     message_display('blyat')
@@ -68,3 +79,4 @@ def game_loop():
 game_loop()
 pygame.quit()
 quit()
+
