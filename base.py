@@ -1,5 +1,6 @@
 import pygame
 import time
+import random
 pygame.init()
 
 display_width = 800
@@ -22,6 +23,8 @@ jetImg = pygame.image.load('fighterjet.png')
 def jet(x, y):
     gameDisplay.blit(jetImg, (x, y))
 
+def apples(apple_x, apple_y, apple_r, apple_w, color):
+    pygame.draw.circle(gameDisplay, color, (apple_x, apple_y), apple_r, apple_w)
 def text_objects(text, font):
     textSurface = font.render(text, True, red)
     return textSurface, textSurface.get_rect()
@@ -47,13 +50,20 @@ def game_loop():
 
     x_change = 0
 
+    apple_startx = random.randrange(0, display_width)
+    apple_starty = -600
+    apple_speed = 7
+    apple_radius = 20
+    apple_width = 0
+
     gameExit = False
 
     while not gameExit:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameExit = True
+                pygame.quit()
+                quit()
                 print(event)
 
             if event.type == pygame.KEYDOWN:
@@ -68,10 +78,17 @@ def game_loop():
 
         x += x_change
         gameDisplay.fill(white)
+        apples(apple_startx, apple_starty, apple_radius, apple_width, red)
+        apple_starty += apple_speed
+
         jet(x, y)
 
         if x > display_width - jet_width or x < 0:
             crash()
+
+        if apple_starty > display_height:
+            apple_starty = 0 - apple_starty
+            apple_startx = random.randrange(0, display_width)
 
         pygame.display.update()
         clock.tick(60)
@@ -79,4 +96,3 @@ def game_loop():
 game_loop()
 pygame.quit()
 quit()
-
