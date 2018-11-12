@@ -14,34 +14,42 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 
-jet_width = 100 #for fighterjet2.png
-jet_height = 100 #for fighterjet2.png
-jet_speed = 10
+android_width = 100 #for fighterandroid2.png
+android_height = 100 #for fighterandroid2.png
+android_speed = 10
 
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('fuckblyat')
 clock = pygame.time.Clock()
 
-jetImg = pygame.image.load('fighterjet2.png')
+androidImg = pygame.image.load('testsquare.png')
 
-def jet(x, y):
-    gameDisplay.blit(jetImg, (x, y))
+def android(x, y):
+    gameDisplay.blit(androidImg, (x, y))
 
 def apples(apple_x, apple_y, apple_r, apple_w, color):
     pygame.draw.circle(gameDisplay, color, (apple_x, apple_y), apple_r, apple_w)
 
-
-def count_update(cnt):
-    msg = '%s%d' %("Count = ", cnt)
-    message_display(msg)
-
-
 def message_display(text):
-    myfont = pygame.font.SysFont('Comic Sans', 30)
-    textsurface = textsurface = myfont.render(text, False, (0, 0, 0))
-    gameDisplay.blit(textsurface, (0, 0))
+    largeText = pygame.font.Font('freesansbold.ttf', 115)
+    TextSurf, TextRect = text_objects(text, largeText)
+    TextRect.center = (display_width/2, display_height/2)
+    gameDisplay.blit(TextSurf, TextRect)
 
+    pygame.display.update()
+
+    time.sleep(3)
+
+    game_loop()
+
+def text_objects(text, font): #change later to add colour as parameter
+    textSurface = font.render(text, True, blue,)
+    return textSurface, textSurface.get_rect()
+
+
+def game_over():
+    message_display("Game Over")
 
 def game_loop():
     x = (display_width * 0.4)
@@ -74,14 +82,9 @@ def game_loop():
         '''
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    x_change = -jet_speed
-
-
+                    x_change = -android_speed
                 if event.key == pygame.K_RIGHT:
-                    x_change = jet_speed
-
-
-
+                    x_change = android_speed
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     x_change = 0
@@ -92,8 +95,8 @@ def game_loop():
         if x < 0:
             x = 0
 
-        if x > display_width - jet_width:
-            x = display_width - jet_width
+        if x > display_width - android_width:
+            x = display_width - android_width
         bg = pygame.image.load("blyatface.jpg")
         gameDisplay.fill(white)
         gameDisplay.blit(bg, (0, 0))
@@ -101,8 +104,8 @@ def game_loop():
 
 
 
-        #Update jet
-        jet(x, y)
+        #Update android
+        android(x, y)
 
         # update apple falling
         apples(apple_x, apple_y, apple_radius, apple_width, red)
@@ -116,18 +119,15 @@ def game_loop():
 
 
         if apple_y + apple_radius > y:
-            if apple_x + apple_radius > x and apple_x - apple_radius < x + jet_width:
+            if apple_x + apple_radius > x and apple_x - apple_radius < x + android_width:
                 count = count + 1
 
                 apple_y = - apple_y
                 apple_x = random.randrange(0, display_width)
 
-        if apple_y + apple_radius > y + jet_height:
+        if apple_y + apple_radius > y + android_height:
             #loseR!!!!
-            gameExit = True
-
-
-        count_update(count)
+            game_over()
 
         pygame.display.update()
         clock.tick(60)
