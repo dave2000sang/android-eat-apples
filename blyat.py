@@ -23,7 +23,8 @@ videoCapture.set(4, 600)
 def process_frame():
     # Read the frame:
     ret, frame = videoCapture.read()
-    cv2.imwrite("blyatface.jpg", frame)
+
+
     #frame = rescale_frame(frame)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.equalizeHist(gray)
@@ -36,15 +37,18 @@ def process_frame():
         minSize=(30, 30)
         #flags = cv2.CV_HAAR_SCALE_IMAGE
     )
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    cv2.imwrite("blyatface.jpg", frame)
     return faces
 
     #print("Found {0} faces!".format(len(faces)))
 
     # Draw a rectangle around the faces
     '''
-    for (x, y, w, h) in faces:
+    
         print("{0} {1}".format(x, y))
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        
         #Crop faces to recognize eyes
         cropFace = frame[y:y+h, x:x+w]
         grayEyes = cv2.cvtColor(cropFace, cv2.COLOR_BGR2GRAY)
