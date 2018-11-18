@@ -116,7 +116,6 @@ def game_loop():
         coord, velocity = blyat.process_frame()
         if len(coord):
             androidX += velocity * 3
-        print (velocity)
         if androidX < 0:
             androidX = 0
         if androidX > display_width - android_width:

@@ -78,6 +78,7 @@ def process_frame():
 
     return faces, lastVelocity
 
+
     # print("Found {0} faces!".format(len(faces)))
 
     # Draw a rectangle around the faces
