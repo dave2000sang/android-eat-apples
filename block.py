@@ -13,3 +13,4 @@ class Block:
         self.height
     def disappear(self):
         self.visible = False
+
