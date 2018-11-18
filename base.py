@@ -64,10 +64,10 @@ def game_over():
     message_display("Game Over")
 
 def game_loop():
-    x = (display_width * 0.4)
-    y = (display_height * 0.8)
+    androidX = (display_width * 0.4)
+    androidY = (display_height * 0.8)
 
-    x_change = 0
+    velocity = 0
     count = 0
 
     #apple stuff
@@ -85,7 +85,7 @@ def game_loop():
     blocks = []
 
     for i in range(num_blocks):
-        blocks.append(Block(block_width, block_height, i*block_width, y + android_height))
+        blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
 
 
 
@@ -113,13 +113,14 @@ def game_loop():
                     x_change = 0
         '''
 
-        coord = blyat.process_frame()
+        coord, velocity = blyat.process_frame()
         if len(coord):
-            x = display_width - (coord[0][0] + coord[0][2] / 2)
-        if x < 0:
-            x = 0
-        if x > display_width - android_width:
-            x = display_width - android_width
+            androidX += velocity * 3
+        print (velocity)
+        if androidX < 0:
+            androidX = 0
+        if androidX > display_width - android_width:
+            androidX = display_width - android_width
 
         bg = pygame.image.load("blyatface.jpg")
         gameDisplay.fill(white)
@@ -127,7 +128,7 @@ def game_loop():
 
 
         #Update android
-        android(x, y)
+        android(androidX, androidY)
 
         #Update/draw floor:
         for i in range(num_blocks):
@@ -146,8 +147,8 @@ def game_loop():
 
 
         #check collision between apple and person
-        if apple_y + apple_radius > y:
-            if apple_x + apple_radius > x and apple_x - apple_radius < x + android_width:
+        if apple_y + apple_radius > androidY:
+            if apple_x + apple_radius > androidX and apple_x - apple_radius < androidX + android_width:
                 count = count + 1
 
                 apple_y = - apple_y
@@ -155,7 +156,7 @@ def game_loop():
 
 
         # When missed apple
-        if apple_y + apple_radius > y + android_height:
+        if apple_y + apple_radius > androidY + android_height:
 
             hit_block = False
             # disappear block with x coordinate

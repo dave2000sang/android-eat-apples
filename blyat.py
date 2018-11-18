@@ -27,9 +27,11 @@ cpQueue = collections.deque()
 
 # Record last face position
 lastFace = (800 / 2, 600 / 2, 30, 30)
+lastVelocity = 0
 
 def process_frame():
     global lastFace
+    global lastVelocity
 
     # Read the frame:
     ret, frame = videoCapture.read()
@@ -62,13 +64,19 @@ def process_frame():
 
     if len(cpQueue) > 20:
         cpQueue.popleft()
+    cnt = 0
     for (x, y) in cpQueue:
-        cv2.circle(frame, (int(x), int(y)), 2, (0, 0, 255), 5)
+        cv2.circle(frame, (int(x), int(y)), 2, (0, 0, cnt), 5)
+        cnt += 10
 
     # write frame to image
     cv2.imwrite("blyatface.jpg", frame)
 
-    return faces
+    # calculate velocity
+    if len(cpQueue) > 1:
+        lastVelocity = (cpQueue[len(cpQueue) - 1][0] - cpQueue[len(cpQueue) - 2][0])
+
+    return faces, lastVelocity
 
     # print("Found {0} faces!".format(len(faces)))
 
