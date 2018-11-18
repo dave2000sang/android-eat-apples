@@ -21,7 +21,7 @@ android_height = 100 #for fighterandroid2.png
 android_speed = 10
 
 
-
+#test
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('fuckblyat')
