@@ -3,7 +3,7 @@ import random
 import blyat
 import time
 import math
-from Block import Block
+from block import Block
 
 pygame.init()
 
