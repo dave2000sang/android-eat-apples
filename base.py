@@ -3,6 +3,7 @@ import random
 import blyat
 import time
 import math
+from Block import Block
 
 pygame.init()
 
@@ -16,8 +17,8 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 block_color = (50, 7, 20)
 
-android_width = 100  #for fighterandroid2.png
-android_height = 100 #for fighterandroid2.png
+android_width = 100  # for fighterandroid2.png
+android_height = 100 # for fighterandroid2.png
 android_speed = 10
 
 
@@ -30,22 +31,6 @@ clock = pygame.time.Clock()
 androidImg = pygame.image.load('fighterjet2.png')
 
 
-
-class Block:
-    def __init__(self, width, height, x, y):
-        self.width = width
-        self.height = height
-        self.x = x
-        self.y = y
-        self.visible = True
-
-    #DO I need these setters/getters
-    def get_width(self):
-        self.width
-    def get_height(self):
-        self.height
-    def disappear(self):
-        self.visible = False
 
 
 def android(x, y):
@@ -192,10 +177,8 @@ def game_loop():
                 game_over()
 
 
-
         pygame.display.update()
         clock.tick(60)
-
 
 game_loop()
 blyat.destroy()
