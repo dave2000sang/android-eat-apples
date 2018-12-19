@@ -6,6 +6,8 @@ import base
 import leaderboard
 import colours
 
+fuck = True
+
 pygame.init()
 
 display_width = 800
