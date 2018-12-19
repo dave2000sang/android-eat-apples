@@ -10,6 +10,9 @@ def center_box(w, h):
 
     return box_x, box_y
 
+def getkey(item):
+    return int(item[0]);
+
 def init(gameDisplay, file_name):
     import startmenu
     display = True
@@ -23,17 +26,19 @@ def init(gameDisplay, file_name):
                 quit()
 
         file = open(file_name, 'r')
-        lines = file.readlines()
+        lines = file.readlines()        #lines is a list of lines of the file.
         scores = []
 
         for line in lines:
+            #scores.append (line.split(","));
             sep = line.index(',')
             name = line.strip()[:sep]
             score = line.strip()[(sep + 1):]
             scores.append ((score, name))
 
         file.close
-        scores.sort(reverse=True)
+
+        scores.sort(key=getkey,reverse=True);
         top_10 = scores[:10]
 
         #print top_10
