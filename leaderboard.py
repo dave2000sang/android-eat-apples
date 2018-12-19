@@ -67,6 +67,7 @@ def display_leaderboard(gameDisplay, file_name):
 
         startmenu.button("Back", 50, 500, 100, 50, colours.lightgray, colours.gray, "startmenu")
 
+
         gameDisplay.blit(box, center_box(box_width, box_height))
         pygame.display.update()
         startmenu.clock.tick(15)
