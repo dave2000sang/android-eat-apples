@@ -2,7 +2,7 @@ import pygame
 import random
 import blyat
 import time
-import basetest
+import base
 import leaderboard
 import colours
 
@@ -33,7 +33,7 @@ def button(msg, x, y, w, h, color, active_color, action = None):
         pygame.draw.rect(gameDisplay, active_color, (x, y, w, h))
         if click[0] == 1 and action != None:
             if action == "play":
-                basetest.game_loop()
+                base.game_loop()
             if action == "leaderboard":
                 leaderboard.leaderboard(gameDisplay, 'highscores.txt')
             if action == "quit":

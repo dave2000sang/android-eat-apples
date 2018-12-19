@@ -3,7 +3,7 @@ import random
 import blyat
 import time
 import math
-from block import Block 
+from block import Block
 
 pygame.init()
 
@@ -115,7 +115,7 @@ def game_loop():
 
         coord, velocity = blyat.process_frame()
         if len(coord):
-            androidX += velocity * 3
+            androidX += velocity * -3
         if androidX < 0:
             androidX = 0
         if androidX > display_width - android_width:
