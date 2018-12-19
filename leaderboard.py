@@ -1,7 +1,5 @@
 import pygame
-import startmenu
 import colours
-import basetest
 pygame.init()
 
 customtext = pygame.font.Font('freesansbold.ttf', 20)
@@ -12,7 +10,8 @@ def center_box(w, h):
 
     return box_x, box_y
 
-def leaderboard(gameDisplay, file_name):
+def init(gameDisplay, file_name):
+    import startmenu
     display = True
     box_height = 500
     box_width = 400
@@ -37,7 +36,7 @@ def leaderboard(gameDisplay, file_name):
         scores.sort(reverse=True)
         top_10 = scores[:10]
 
-        print top_10
+        #print top_10
 
         box = pygame.surface.Surface((box_width, box_height))
         box.fill(colours.lightgray)

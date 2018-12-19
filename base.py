@@ -3,6 +3,7 @@ import random
 import blyat
 import time
 import math
+#import highscores
 from block import Block
 
 pygame.init()
@@ -99,7 +100,7 @@ def game_loop():
             #print(event)
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.q:
+                if event.key == pygame.K_q:
                     gameExit = True
 
         '''
@@ -180,7 +181,7 @@ def game_loop():
         pygame.display.update()
         clock.tick(60)
 
-game_loop()
-blyat.destroy()
-pygame.quit()
-quit()
+#game_loop()
+#blyat.destroy()
+#pygame.quit()
+#quit()
