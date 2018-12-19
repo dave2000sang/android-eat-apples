@@ -180,6 +180,8 @@ def game_loop():
             if hit_block == False:
                 game_over(count)
 
+        #update_cnt = "count = " + str(count)
+        #message_display(update_cnt);
 
         pygame.display.update()
         clock.tick(60)
