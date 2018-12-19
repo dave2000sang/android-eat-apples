@@ -1,5 +1,4 @@
 import pygame
-import startmenu
 import colours
 
 pygame.init()
@@ -44,7 +43,7 @@ def write_highscore(file_name, player_name, player_points):
     file.close()
 
 def inputbox(display, text):
-
+    import startmenu
     box_width = 600
     box_height = 150
 

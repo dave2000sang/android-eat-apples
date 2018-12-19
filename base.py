@@ -3,7 +3,7 @@ import random
 import blyat
 import time
 import math
-#import highscores
+import highscores
 from block import Block
 
 pygame.init()
@@ -52,9 +52,8 @@ def message_display(text):
 
     pygame.display.update()
 
-    time.sleep(3)
+    time.sleep(1)
 
-    game_loop()
 
 def text_objects(text, font): #change later to add colour as parameter
     textSurface = font.render(text, True, blue,)
@@ -96,12 +95,16 @@ def game_loop():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                game_over()
                 gameExit = True
+                break
             #print(event)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
+                    game_over()
                     gameExit = True
+                    break
 
         '''
             if event.type == pygame.KEYDOWN:
