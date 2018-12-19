@@ -13,7 +13,7 @@ def center_box(w, h):
 def getkey(item):
     return int(item[0]);
 
-def init(gameDisplay, file_name):
+def display_leaderboard(gameDisplay, file_name):
     import startmenu
     display = True
     box_height = 500

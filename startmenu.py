@@ -35,7 +35,7 @@ def button(msg, x, y, w, h, color, active_color, action = None):
             if action == "play":
                 base.game_loop()
             if action == "leaderboard":
-                leaderboard.init(gameDisplay, 'highscores.txt')
+                leaderboard.display_leaderboard(gameDisplay, 'highscores.txt')
             if action == "quit":
                 quitgame()
     else:
