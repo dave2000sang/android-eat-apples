@@ -38,6 +38,8 @@ def button(msg, x, y, w, h, color, active_color, action = None):
                 leaderboard.display_leaderboard(gameDisplay, 'highscores.txt')
             if action == "quit":
                 quitgame()
+            if action == "startmenu":
+                game_intro()
     else:
         pygame.draw.rect(gameDisplay, color, (x, y , w, h))
 
