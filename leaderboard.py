@@ -1,6 +1,9 @@
 import pygame
 import colours
 pygame.init()
+import text
+import startmenu
+import time
 
 customtext = pygame.font.Font('freesansbold.ttf', 20)
 
@@ -14,7 +17,6 @@ def getkey(item):
     return int(item[0]);
 
 def display_leaderboard(gameDisplay, file_name):
-    import startmenu
     display = True
     box_height = 500
     box_width = 400
@@ -47,27 +49,26 @@ def display_leaderboard(gameDisplay, file_name):
         box.fill(colours.lightgray)
 
         #Leaderboard title
-        textSurf, textRect = startmenu.text_objects("Leaderboard", startmenu.smallText, colours.black)
+        textSurf, textRect = text.text_objects("Leaderboard", text.smallText, colours.black)
         textRect.center = ((box_width/2), 50)
         box.blit(textSurf, textRect)
 
         for i, entry in enumerate(top_10):
 
             #Position of names
-            nameSurf, nameRect = startmenu.text_objects(entry[1], customtext, colours.black)
+            nameSurf, nameRect = text.text_objects(entry[1], customtext, colours.black)
             nameRect.left = 70 #CALCULATE THE SEPERATION LATER
             nameRect.centery = (30 * i + 100)
             box.blit(nameSurf, nameRect)
 
             #Position of scores
-            scoreSurf, scoreRect = startmenu.text_objects(entry[0], customtext, colours.black)
+            scoreSurf, scoreRect = text.text_objects(entry[0], customtext, colours.black)
             scoreRect.right = (box_width - 70)
             scoreRect.centery = (30 * i + 100)
             box.blit(scoreSurf, scoreRect)
 
-        startmenu.button("Back", 50, 500, 100, 50, colours.lightgray, colours.gray, "startmenu")
-
+        text.button("Back", 50, 500, 100, 50, colours.lightgray, colours.gray, startmenu.game_intro)
 
         gameDisplay.blit(box, center_box(box_width, box_height))
         pygame.display.update()
-        startmenu.clock.tick(15)
+        pygame.time.Clock().tick(15)

@@ -1,7 +1,8 @@
 import pygame
 import colours
-
+import text
 pygame.init()
+import base
 
 def register_highscore(display, player_points):
     highscore_name, highscore_points = get_highscore('highscores.txt')
@@ -43,19 +44,18 @@ def write_highscore(file_name, player_name, player_points):
     file.close()
 
 def inputbox(display, text):
-    import startmenu
     box_width = 600
     box_height = 150
 
     box = pygame.surface.Surface((box_width, box_height))
     box.fill(colours.lightgray)
     pygame.draw.rect(box, colours.black, (0,0, box_width, box_height), 1)
-    textSurf, textRect = startmenu.text_objects(text, startmenu.largeText, colours.black)
+    textSurf, textRect = text.text_objects(text, text.largeText, colours.black)
     box.blit(textSurf, textRect)
 
     def display_name(display, name):
         pygame.draw.rect(box, colours.white, (50, 60, box_width - 100, 20), 0)
-        textSurf, textRect = startmenu.text_objects(name, startmenu.smallText, colours.black)
+        textSurf, textRect = text.text_objects(name, text.smallText, colours.black)
         box.blit(textSurf, textRect)
         display.blit(box, (0, box_height/2))
         pygame.display.flip()
@@ -66,7 +66,7 @@ def inputbox(display, text):
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT():
-                startmenu.quitgame()
+                base.quitgame()
 
             elif event.type == pygame.KEYDOWN:
                 pressed_key = event.key

@@ -31,8 +31,9 @@ clock = pygame.time.Clock()
 
 androidImg = pygame.image.load('fighterjet2.png')
 
-
-
+def quitgame():
+    pygame.quit()
+    quit()
 
 def android(x, y):
     gameDisplay.blit(androidImg, (x, y))
@@ -60,8 +61,9 @@ def text_objects(text, font): #change later to add colour as parameter
     return textSurface, textSurface.get_rect()
 
 
-def game_over():
+def game_over(count):
     message_display("Game Over")
+    highscores.register_highscore(gameDisplay, count)
 
 def game_loop():
     androidX = (display_width * 0.4)
@@ -95,16 +97,14 @@ def game_loop():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game_over()
+                game_over(count)
                 gameExit = True
                 break
             #print(event)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
-                    game_over()
-                    gameExit = True
-                    break
+                    game_over(count)
 
         '''
             if event.type == pygame.KEYDOWN:
@@ -178,7 +178,7 @@ def game_loop():
 
             # if pass through (no block disappear)
             if hit_block == False:
-                game_over()
+                game_over(count)
 
 
         pygame.display.update()
