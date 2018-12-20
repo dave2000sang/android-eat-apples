@@ -3,6 +3,7 @@ import colours
 import text
 pygame.init()
 import base
+import startmenu
 
 
 def register_highscore(display, player_points):
@@ -90,7 +91,7 @@ def inputbox(display, string_input):
                 pressed_key = event.key
 
                 if pressed_key == pygame.K_ESCAPE:
-                    base.quitgame()
+                    startmenu.game_intro()
 
                 elif pressed_key in [13, 274]:
                     return name
