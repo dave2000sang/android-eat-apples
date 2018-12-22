@@ -45,39 +45,35 @@ def write_highscore(file_name, player_name, player_points):
     file.close()
 
 def inputbox(display, string_input):
+    #Inputbox Constants
+    box_width = 600
+    box_height = 150
+    box_x = 100
+    box_y = 100
+
+    box = pygame.surface.Surface((box_width, box_height))
+    box.fill(colours.lightgray)
+    pygame.draw.rect(box, colours.black, (0,0, box_width, box_height), 5)
+    titleSurf, titleRect = text.text_objects(string_input, text.smallText, colours.black)
+    titleRect.center = (box_width / 2, 20)
+    box.blit(titleSurf, titleRect)
 
 
     def blink(screen):
         for color in [colours.lightgray, colours.white]:
             pygame.draw.circle(box, color, (box_width // 2, int(box_height * 0.7)), 7, 0)
-            screen.blit(box, (0, box_height // 2))
+            screen.blit(box, (box_x, box_y))
             pygame.display.flip()
             pygame.time.wait(300)
 
-    def show_name(screen, name):
-        pygame.draw.rect(box, colours.white, (50, 60, box_width - 100, 20), 0)
-        txtSurf, txtRect = text.text_objects(name, text.smallText, colours.black)
-        txtRect.center = (box_width / 2, int(box_height*0.7))
-        box.blit(txtSurf, txtRect)
-        screen.blit(box, (0, box_height / 2))
-        pygame.display.flip()
-
-
-    box_width = 600
-    box_height = 150
-
-    box = pygame.surface.Surface((box_width, box_height))
-    box.fill(colours.lightgray)
-    pygame.draw.rect(box, colours.black, (0,0, box_width, box_height), 1)
-    textSurf, textRect = text.text_objects(string_input, text.smallText, colours.black)
-    box.blit(textSurf, textRect)
-
     def display_name(display, name):
-        pygame.draw.rect(box, colours.white, (50, 60, box_width - 100, 20), 0)
-        tSurf, tRect = text.text_objects(name, text.smallText, colours.black)
-        box.blit(tSurf, tRect)
-        display.blit(box, (0, box_height/2))
-        pygame.display.flip()
+        pygame.draw.rect(box, colours.white, (50, 60, box_width - 100, 30), 0)
+        pygame.draw.rect(box, colours.black, (50, 60, box_width - 100, 30), 3)
+        textSurf, textRect = text.text_objects(name, text.smallText, colours.black)
+        textRect.center = (box_width/2, box_height / 2)
+        box.blit(textSurf, textRect)
+        display.blit(box, (box_x, box_y))
+        pygame.display.update()
 
     name = ""
     display_name(display, name)
@@ -90,26 +86,27 @@ def inputbox(display, string_input):
             elif event.type == pygame.KEYDOWN:
                 pressed_key = event.key
 
-                if pressed_key == pygame.K_ESCAPE:
+                if len(name) > 15: #Maximum length of name
+                    name = name
+
+                elif pressed_key == pygame.K_ESCAPE:
                     startmenu.game_intro()
 
                 elif pressed_key in [13, 274]:
                     return name
 
-                elif pressed_key == 8: #backspace key
+                elif pressed_key == pygame.K_BACKSPACE: #backspace key
                     name = name[: -1]
 
                 elif pressed_key <= 300:
                     if pygame.key.get_mods() & pygame.KMOD_SHIFT and 122 >= pressed_key >= 97:
                         pressed_key -= 32
 
-                    name += chr(pressed_key)
-
-
+                    name += event.unicode
 
         if name == "":
             blink(display)
-        show_name(display, name)
+        display_name(display, name)
 
 
 
