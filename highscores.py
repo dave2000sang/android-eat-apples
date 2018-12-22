@@ -93,6 +93,12 @@ def inputbox(display, string_input):
                     startmenu.game_intro()
 
                 elif pressed_key in [13, 274]:
+                    textSurf, textRect = text.text_objects("Saved!", text.smallText, colours.black)
+                    textRect.center = (box_width/2, box_height/2)
+                    box.blit(textSurf, textRect)
+                    display.blit(box, (box_x, box_y))
+                    pygame.display.update()
+
                     return name
 
                 elif pressed_key == pygame.K_BACKSPACE: #backspace key
