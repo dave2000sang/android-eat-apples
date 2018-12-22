@@ -15,6 +15,12 @@ smallText = pygame.font.Font("freesansbold.ttf", 20)
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
+def center_box(box_width, box_height, display_width, display_height):
+    box_x = (display_width - box_width) / 2
+    box_y = (display_height - box_height) / 2
+
+    return box_x, box_y
+
 def button(msg, x, y, w, h, color, active_color, action):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()

@@ -60,8 +60,8 @@ def inputbox(display, string_input):
 
 
     def blink(screen):
-        for color in [colours.lightgray, colours.white]:
-            pygame.draw.circle(box, color, (box_width // 2, int(box_height * 0.7)), 7, 0)
+        for color in [colours.black, colours.white]:
+            pygame.draw.rect(box, color, (box_width / 2, 65, 5, 20), 0)
             screen.blit(box, (box_x, box_y))
             pygame.display.flip()
             pygame.time.wait(300)
