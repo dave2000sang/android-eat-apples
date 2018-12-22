@@ -28,7 +28,7 @@ def display_leaderboard(gameDisplay, file_name):
                 quit()
 
         file = open(file_name, 'r')
-        lines = file.readlines()        #lines is a list of lines of the file.
+        lines = file.readlines()[1:]        #lines is a list of lines of the file.
         scores = []
 
         for line in lines:

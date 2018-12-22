@@ -25,7 +25,7 @@ def register_highscore(display, player_points):
 
 def get_highscore(file_name):
     file = open(file_name, 'r')
-    lines = file.readlines()
+    lines = file.readlines()[1:]
     file.close
 
     high_score = 0
