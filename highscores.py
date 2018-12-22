@@ -29,6 +29,7 @@ def get_highscore(file_name):
     file.close
 
     high_score = 0
+    high_name = ""
 
     for line in lines:
         name, score = line.split(",")
@@ -86,19 +87,10 @@ def inputbox(display, string_input):
             elif event.type == pygame.KEYDOWN:
                 pressed_key = event.key
 
-                if len(name) > 15: #Maximum length of name
-                    name = name
-
-                elif pressed_key == pygame.K_ESCAPE:
+                if pressed_key == pygame.K_ESCAPE:
                     startmenu.game_intro()
 
                 elif pressed_key in [13, 274]:
-                    textSurf, textRect = text.text_objects("Saved!", text.smallText, colours.black)
-                    textRect.center = (box_width/2, box_height/2)
-                    box.blit(textSurf, textRect)
-                    display.blit(box, (box_x, box_y))
-                    pygame.display.update()
-
                     return name
 
                 elif pressed_key == pygame.K_BACKSPACE: #backspace key

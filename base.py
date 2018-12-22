@@ -89,15 +89,12 @@ def game_loop():
     for i in range(num_blocks):
         blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
 
-
-
     gameExit = False
 
     while not gameExit:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game_over(count)
                 gameExit = True
                 break
             #print(event)
