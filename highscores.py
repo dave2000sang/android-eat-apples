@@ -48,9 +48,9 @@ def write_highscore(file_name, player_name, player_points):
 def inputbox(display, string_input):
     #Inputbox Constants
     box_width = 600
-    box_height = 150
+    box_height = 300
     box_x = 100
-    box_y = 100
+    box_y = 150
 
     box = pygame.surface.Surface((box_width, box_height))
     box.fill(colours.lightgray)
@@ -71,8 +71,10 @@ def inputbox(display, string_input):
         pygame.draw.rect(box, colours.white, (50, 60, box_width - 100, 30), 0)
         pygame.draw.rect(box, colours.black, (50, 60, box_width - 100, 30), 3)
         textSurf, textRect = text.text_objects(name, text.smallText, colours.black)
-        textRect.center = (box_width/2, box_height / 2)
+        textRect.center = (box_width/2, 75)
         box.blit(textSurf, textRect)
+
+
         display.blit(box, (box_x, box_y))
         pygame.display.update()
 
@@ -83,6 +85,7 @@ def inputbox(display, string_input):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 base.quitgame()
+
 
             elif event.type == pygame.KEYDOWN:
                 pressed_key = event.key

@@ -66,6 +66,7 @@ def display_leaderboard(gameDisplay, file_name):
 
         text.button("Back", 50, 500, 100, 50, colours.lightgray, colours.gray, startmenu.game_intro)
 
+        pygame.draw.rect(box, colours.black, (0, 0, box_width, box_height), 3)
         gameDisplay.blit(box, center_box(box_width, box_height))
         pygame.display.update()
         pygame.time.Clock().tick(15)
