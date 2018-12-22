@@ -32,7 +32,6 @@ def display_leaderboard(gameDisplay, file_name):
         scores = []
 
         for line in lines:
-            #scores.append (line.split(","));
             sep = line.index(',')
             name = line.strip()[:sep]
             score = line.strip()[(sep + 1):]
@@ -42,8 +41,6 @@ def display_leaderboard(gameDisplay, file_name):
 
         scores.sort(key=getkey,reverse=True);
         top_10 = scores[:10]
-
-        #print top_10
 
         box = pygame.surface.Surface((box_width, box_height))
         box.fill(colours.lightgray)
