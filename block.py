@@ -6,11 +6,12 @@ class Block:
         self.y = y
         self.visible = True
 
-    #DO I need these setters/getters
     def get_width(self):
         self.width
     def get_height(self):
         self.height
     def disappear(self):
         self.visible = False
+    def reappear(self):
+        self.visible = True
 

@@ -21,13 +21,14 @@ def center_box(box_width, box_height, display_width, display_height):
 
     return box_x, box_y
 
-def button(screen, msg, x, y, w, h, color, active_color, action):
+def button(msg, x, y, w, h, color, active_color, action):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
+    #print(click)
     border = 3 #Change Border Thickness
 
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
-        pygame.draw.rect(screen, active_color, (x, y, w, h), 0)
+        pygame.draw.rect(gameDisplay, active_color, (x, y, w, h), 0)
         if click[0] == 1 and action != None:
 
             if action == "leaderboard":
@@ -35,12 +36,12 @@ def button(screen, msg, x, y, w, h, color, active_color, action):
             else:
                 action()
     else:
-        pygame.draw.rect(screen, color, (x, y , w, h), 0)
+        pygame.draw.rect(gameDisplay, color, (x, y , w, h), 0)
 
-    pygame.draw.rect(screen, colours.black, (x, y, w, h), border)
+    pygame.draw.rect(gameDisplay, colours.black, (x, y, w, h), border)
     textSurf, textRect = text_objects(msg, smallText, colours.black)
     textRect.center = ((x + (w/2)), (y + (h/2)))
-    screen.blit(textSurf, textRect)
+    gameDisplay.blit(textSurf, textRect)
 
 def text_objects(text, font, color):
     textSurface = font.render(text, True, color)
@@ -53,4 +54,4 @@ def message_display(text):
 
     pygame.display.update()
 
-    time.sleep(2)
+    time.sleep(3)
