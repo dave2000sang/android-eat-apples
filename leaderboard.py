@@ -14,7 +14,7 @@ def center_box(w, h):
     return box_x, box_y
 
 def getkey(item):
-    return int(item[0]);
+    return int(item[0])
 
 def display_leaderboard(screen, file_name):
     display = True
@@ -40,7 +40,7 @@ def display_leaderboard(screen, file_name):
 
         file.close
 
-        scores.sort(key=getkey,reverse=True);
+        scores.sort(key=getkey,reverse=True)
         top_10 = scores[:10]
 
         box = pygame.surface.Surface((box_width, box_height))

@@ -13,8 +13,6 @@ display_height = 600
 #Text Fonts
 smallText = pygame.font.Font("freesansbold.ttf", 20)
 
-gameDisplay = pygame.display.set_mode((display_width, display_height))
-
 def center_box(box_width, box_height, display_width, display_height):
     box_x = (display_width - box_width) / 2
     box_y = (display_height - box_height) / 2
@@ -32,7 +30,7 @@ def button(screen, msg, x, y, w, h, color, active_color, action):
         if click[0] == 1 and action != None:
 
             if action == "leaderboard":
-                leaderboard.display_leaderboard(gameDisplay, 'highscores.txt')
+                leaderboard.display_leaderboard(base.gameDisplay, 'highscores.txt')
             else:
                 action()
     else:
@@ -50,7 +48,7 @@ def text_objects(text, font, color):
 def message_display(text):
     TextSurf, TextRect = text_objects(text, smallText, colours.black)
     TextRect.center = (display_width/2, display_height/2)
-    gameDisplay.blit(TextSurf, TextRect)
+    base.gameDisplay.blit(TextSurf, TextRect)
 
     pygame.display.update()
 

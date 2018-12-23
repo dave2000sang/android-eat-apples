@@ -60,10 +60,6 @@ class Reset_Apple (Apple):
 def print_blocks(b_x, b_y, width, height):
     pygame.draw.rect(gameDisplay, block_color, [b_x, b_y, width, height], 2)
 
-def text_objects(text, font): #change later to add colour as parameter
-    textSurface = font.render(text, True, blue,)
-    return textSurface, textSurface.get_rect()
-
 def game_over(count):
     text.message_display("Game Over")
     highscores.register_highscore(gameDisplay, count)
@@ -103,8 +99,6 @@ def game_loop():
 
     for i in range(num_blocks):
         blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
-
-
 
     gameExit = False
 

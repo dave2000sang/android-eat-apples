@@ -26,15 +26,15 @@ def game_intro():
         largeText = pygame.font.Font('freesansbold.ttf', 115)
         textSurf, textRect = text.text_objects("Fuck", largeText, colours.black)
         textRect.center = (text.display_width/2, 50)
-        text.gameDisplay.blit(textSurf, textRect)
+        base.gameDisplay.blit(textSurf, textRect)
 
         #Start Menu Background Image
-        text.gameDisplay.fill(colours.white)
+        base.gameDisplay.fill(colours.white)
 
         #Start Menu Buttons
-        text.button(text.gameDisplay, "Start",300, 100, 200, 100, colours.lightgray, colours.gray, base.game_loop)
-        text.button(text.gameDisplay, "Leaderboard", 300, 250, 200, 100, colours.lightgray, colours.gray, "leaderboard")
-        text.button(text.gameDisplay, "Quit", 300, 400, 200, 100, colours.lightgray, colours.gray, base.quitgame)
+        text.button(base.gameDisplay, "Start",300, 100, 200, 100, colours.lightgray, colours.gray, base.game_loop)
+        text.button(base.gameDisplay, "Leaderboard", 300, 250, 200, 100, colours.lightgray, colours.gray, "leaderboard")
+        text.button(base.gameDisplay, "Quit", 300, 400, 200, 100, colours.lightgray, colours.gray, base.quitgame)
 
         pygame.display.update()
         clock.tick(15)
