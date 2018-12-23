@@ -126,7 +126,7 @@ def inputbox(display, string_input):
         display_name(display, name)
 
         pygame.display.update()
-        startmenu.clock.tick(15)
+        base.clock.tick(15)
 
 
 

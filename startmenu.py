@@ -9,8 +9,6 @@ import text
 
 pygame.init()
 
-clock = pygame.time.Clock()
-
 startmenu_image = pygame.image.load("start_menu.jpeg").convert()
 
 def game_intro():
@@ -37,4 +35,4 @@ def game_intro():
         text.button(base.gameDisplay, "Quit", 300, 400, 200, 100, colours.lightgray, colours.gray, base.quitgame)
 
         pygame.display.update()
-        clock.tick(15)
+        base.clock.tick(15)

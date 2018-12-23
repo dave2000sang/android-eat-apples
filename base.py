@@ -4,8 +4,9 @@ import blyat
 import time
 import math
 import highscores
-from block import Block
+import colours
 import text
+from block import Block
 
 pygame.init()
 
@@ -32,6 +33,31 @@ androidImg = pygame.image.load('fighterjet2.png')
 def quitgame():
     pygame.quit()
     quit()
+
+def pause():
+
+    paused = True
+
+    while paused:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    paused = not paused
+
+        gameDisplay.fill(colours.white)
+        pausedSurf, pausedRect = text.text_objects("Paused", text.smallText, colours.black)
+        pausedRect.center = (400, 200)
+        gameDisplay.blit(pausedSurf, pausedRect)
+
+        contSurf, contRect = text.text_objects("To continue, press ESCAPE again", text.smallText, colours.black)
+        contRect.center = (400, 300)
+        gameDisplay.blit(contSurf, contRect)
+        pygame.display.update()
+        clock.tick(5)
+
 
 def android(x, y):
     gameDisplay.blit(androidImg, (x, y))
@@ -108,6 +134,7 @@ def game_loop():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
+                quitgame()
                 break
             #print(event)
 
@@ -116,6 +143,9 @@ def game_loop():
                     game_over(count)
                     gameExit = True
                     break
+
+                elif event.key == pygame.K_ESCAPE:
+                    pause()
 
         #for detecting face:
         coord, velocity = blyat.process_frame()
