@@ -133,16 +133,14 @@ def game_loop():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameExit = True
                 quitgame()
-                break
+                gameExit = True
             #print(event)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     game_over(count)
                     gameExit = True
-                    break
 
                 elif event.key == pygame.K_ESCAPE:
                     pause()
@@ -235,7 +233,6 @@ def game_loop():
                 if hit_block == False:
                     game_over(count)
                     gameExit = True
-                    break
 
                 if isinstance(cur_apple, Reset_Apple):
                     del apples[i]
