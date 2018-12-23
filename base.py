@@ -3,7 +3,7 @@ import random
 import blyat
 import time
 import math
-import highscores
+import text
 from block import Block
 
 pygame.init()
@@ -62,25 +62,13 @@ class Reset_Apple (Apple):
 def print_blocks(b_x, b_y, width, height):
     pygame.draw.rect(gameDisplay, block_color, [b_x, b_y, width, height], 2)
 
-
-def message_display(text):
-    largeText = pygame.font.Font('freesansbold.ttf', 115)
-    TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = (display_width/2, display_height/2)
-    gameDisplay.blit(TextSurf, TextRect)
-
-    pygame.display.update()
-
-    time.sleep(1)
-
-
 def text_objects(text, font): #change later to add colour as parameter
     textSurface = font.render(text, True, blue,)
     return textSurface, textSurface.get_rect()
 
-
 def game_over(count):
-    message_display("Game Over")
+    import highscores
+    text.message_display("Game Over")
     highscores.register_highscore(gameDisplay, count)
 
 def game_loop():
@@ -125,6 +113,8 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     game_over(count)
+                    gameExit = True
+                    break
 
         #for detecting face:
         coord, velocity = blyat.process_frame()
@@ -194,6 +184,8 @@ def game_loop():
                 # if pass through (no block disappear)
                 if hit_block == False:
                     game_over(count)
+                    gameExit = True
+                    break
 
             #update_cnt = "count = " + str(count)
             #message_display(update_cnt);

@@ -4,6 +4,7 @@ import text
 pygame.init()
 import base
 import startmenu
+import time
 
 
 def register_highscore(display, player_points):
@@ -46,19 +47,20 @@ def write_highscore(file_name, player_name, player_points):
     file.close()
 
 def inputbox(display, string_input):
-    #Inputbox Constants
+    #Inputbox Constants for Box
     box_width = 600
-    box_height = 300
+    box_height = 150
     box_x = 100
     box_y = 150
 
     box = pygame.surface.Surface((box_width, box_height))
+    save = pygame.surface.Surface((box_width, box_height))
     box.fill(colours.lightgray)
+    save.fill(colours.lightgray)
     pygame.draw.rect(box, colours.black, (0,0, box_width, box_height), 5)
     titleSurf, titleRect = text.text_objects(string_input, text.smallText, colours.black)
     titleRect.center = (box_width / 2, 20)
     box.blit(titleSurf, titleRect)
-
 
     def blink(screen):
         for color in [colours.black, colours.white]:
@@ -67,25 +69,35 @@ def inputbox(display, string_input):
             pygame.display.flip()
             pygame.time.wait(300)
 
-    def display_name(display, name):
+    def display_name(surface, name):
         pygame.draw.rect(box, colours.white, (50, 60, box_width - 100, 30), 0)
         pygame.draw.rect(box, colours.black, (50, 60, box_width - 100, 30), 3)
         textSurf, textRect = text.text_objects(name, text.smallText, colours.black)
         textRect.center = (box_width/2, 75)
+
         box.blit(textSurf, textRect)
+        surface.blit(box, (box_x, box_y))
+        pygame.display.update()
 
+    def display_save(surface):
+        pygame.draw.rect(save, colours.black, (0,0, box_width, box_height), 5)
+        savedSurf, savedRect = text.text_objects("Saved!", text.smallText, colours.black)
+        savedRect.center = (box_width/2, 75)
 
-        display.blit(box, (box_x, box_y))
+        save.blit(savedSurf, savedRect)
+        surface.blit(save, (box_x, box_y))
         pygame.display.update()
 
     name = ""
+    input = True
     display_name(display, name)
 
-    while True:
+    while input:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                input = False
                 base.quitgame()
-
+                break
 
             elif event.type == pygame.KEYDOWN:
                 pressed_key = event.key
@@ -93,8 +105,11 @@ def inputbox(display, string_input):
                 if pressed_key == pygame.K_ESCAPE:
                     startmenu.game_intro()
 
-                elif pressed_key in [13, 274]:
+                elif pressed_key == pygame.K_RETURN:
+                    display_save(display)
+                    time.sleep(3)
                     return name
+                    startmenu.game_intro()
 
                 elif pressed_key == pygame.K_BACKSPACE: #backspace key
                     name = name[: -1]
@@ -105,10 +120,13 @@ def inputbox(display, string_input):
 
                     name += event.unicode
 
+
         if name == "":
             blink(display)
         display_name(display, name)
 
+        pygame.display.update()
+        startmenu.clock.tick(15)
 
 
-    
+

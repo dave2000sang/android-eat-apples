@@ -1,9 +1,9 @@
 import pygame
 import colours
-pygame.init()
 import text
 import startmenu
-import time
+
+pygame.init()
 
 customtext = pygame.font.Font('freesansbold.ttf', 20)
 
@@ -16,7 +16,7 @@ def center_box(w, h):
 def getkey(item):
     return int(item[0]);
 
-def display_leaderboard(gameDisplay, file_name):
+def display_leaderboard(screen, file_name):
     display = True
     box_height = 500
     box_width = 400
@@ -26,6 +26,7 @@ def display_leaderboard(gameDisplay, file_name):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+                break
 
         file = open(file_name, 'r')
         lines = file.readlines()[1:]        #lines is a list of lines of the file.
@@ -64,9 +65,9 @@ def display_leaderboard(gameDisplay, file_name):
             scoreRect.centery = (30 * i + 100)
             box.blit(scoreSurf, scoreRect)
 
-        text.button("Back", 50, 500, 100, 50, colours.lightgray, colours.gray, startmenu.game_intro)
+        text.button(screen, "Back", 50, 500, 100, 50, colours.lightgray, colours.gray, startmenu.game_intro)
 
         pygame.draw.rect(box, colours.black, (0, 0, box_width, box_height), 3)
-        gameDisplay.blit(box, center_box(box_width, box_height))
+        screen.blit(box, center_box(box_width, box_height))
         pygame.display.update()
         pygame.time.Clock().tick(15)
