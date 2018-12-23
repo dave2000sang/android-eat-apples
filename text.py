@@ -24,7 +24,7 @@ def center_box(box_width, box_height, display_width, display_height):
 def button(msg, x, y, w, h, color, active_color, action):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    print(click)
+    #print(click)
     border = 3 #Change Border Thickness
 
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
