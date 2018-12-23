@@ -228,7 +228,3 @@ def game_loop():
             pygame.display.update()
             clock.tick(60)
 
-#game_loop()
-#blyat.destroy()
-#pygame.quit()
-#quit()
