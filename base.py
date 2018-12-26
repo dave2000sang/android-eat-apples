@@ -68,7 +68,7 @@ def print_apples(apple_x, apple_y, apple_r, apple_w, color):
 class Apple:
     def __init__(self,x,y,r,w,speed,color):
         self.x = x
-        self.y =y
+        self.y = y
         self.r = r
         self.w = w
         self.speed = speed
@@ -123,6 +123,10 @@ def game_loop():
     Insert_Reset_Already = False
     TIME_Reset_Apple = 15
 
+    Insert_Apple = False
+    #Time to release a new apple
+    TIME_Apple = 20 + random.randrange(0, 10)
+
     for i in range(num_blocks):
         blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
 
@@ -170,7 +174,7 @@ def game_loop():
             if cur_block.visible == True:
                 print_blocks(cur_block.x, cur_block.y, cur_block.width, cur_block.height)
 
-        #If TIME_Reset_Apple seconds have passed, add a new apple
+        #If TIME_Reset_Apple seconds have passed, add a new reset apple
         cur_time = time.time() - start_time
         print "time: " + str(cur_time)
 
@@ -180,8 +184,18 @@ def game_loop():
             apples.append(Reset_Apple (temp_x, APPLE_Y, APPLE_RADIUS, APPLE_WIDTH, APPLE_SPEED, RESET_APPLE_COLOR))
             Insert_Reset_Already = True
 
+        #TIME_Apple = 10
+        #Insert a new regular apple (every TIME_Apple seconds have passed)
+        if cur_time % TIME_Apple >= 0 and cur_time % TIME_Apple <= 0.1 and (not Insert_Apple):
+            temp_x = random.randrange(0, display_width)
+            temp_y = - random.randrange(0, display_width)
+            apples.append(Apple(temp_x,temp_y,APPLE_RADIUS, APPLE_WIDTH, APPLE_SPEED, APPLE_COLOR))
+            Insert_Apple = True
+            TIME_Apple = 20 + random.randrange(0, 10)   # Make a new random apple
 
-        # update apple(s) falling
+
+
+        # Query through and update apple(s) falling
         for i in range(len(apples)):
             cur_apple = apples[i]
 
@@ -206,12 +220,13 @@ def game_loop():
                         # Reset blocks
                         for j in range(len(blocks)):
                             blocks[j].reappear()
-                        del apples[i]                   # remove the last apple in apples, i.e. the Reset_Apple
+                        del apples[i]                   # remove the Reset_Apple
                         Insert_Reset_Already = False    # can now add another Reset_Apple
                         break
 
-                    cur_apple.y = - cur_apple.y
+                    cur_apple.y = - cur_apple.y - random.randrange(0, display_width)
                     cur_apple.x = random.randrange(0, display_width)
+                    Insert_Apple = False
 
             # When missed apple (apple passed android)
             if cur_apple.y + cur_apple.r > androidY + android_height:
@@ -225,7 +240,7 @@ def game_loop():
                         hit_block = True
 
                         # Reset apple y coordinate
-                        cur_apple.y = - cur_apple.y
+                        cur_apple.y = - cur_apple.y - random.randrange(0, display_width)
                         cur_apple.x = random.randrange(0, display_width)
                         break
 
@@ -234,9 +249,12 @@ def game_loop():
                     game_over(count)
                     gameExit = True
 
+                #Check if current apple is a Reset_Apple, if it is, delete it.
                 if isinstance(cur_apple, Reset_Apple):
                     del apples[i]
                     Insert_Reset_Already = False
+
+                Insert_Apple = False
 
             #update_cnt = "count = " + str(count)
             #message_display(update_cnt);
