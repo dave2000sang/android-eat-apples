@@ -19,8 +19,8 @@ eyesCascade = cv2.CascadeClassifier(cascPath2)
 
 # Initiate video capturing
 videoCapture = cv2.VideoCapture(0)
-videoCapture.set(3, 800)
-videoCapture.set(4, 600)
+videoCapture.set(cv2.CAP_PROP_FRAME_WIDTH, 800)
+videoCapture.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
 
 # Declare center-position queue
 cpQueue = collections.deque()
@@ -77,7 +77,6 @@ def process_frame():
         lastVelocity = (cpQueue[len(cpQueue) - 1][0] - cpQueue[len(cpQueue) - 2][0])
 
     return faces, lastVelocity
-
 
     # print("Found {0} faces!".format(len(faces)))
 
