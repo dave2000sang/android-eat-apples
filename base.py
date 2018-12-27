@@ -232,8 +232,6 @@ def game_loop():
                     count += 1
 
                     if isinstance(cur_apple, Reset_Apple):
-                        #print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-                        #print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
                         # Reset blocks
                         for j in range(len(blocks)):
                             blocks[j].reappear()
@@ -278,5 +276,4 @@ def game_loop():
         clock.tick(30)
 
         #update_cnt = "count = " + str(count)
-        #text.message_display(update_cnt);
-
+        #text.message_display(update_cnt)
