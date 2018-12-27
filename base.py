@@ -29,6 +29,8 @@ pygame.display.set_caption('fuckblyat')
 clock = pygame.time.Clock()
 
 androidImg = pygame.image.load('fighterjet2.png')
+appleImg = pygame.image.load('apple.png')
+ResetAppleImg = pygame.image.load('ResetApple.png')
 
 def quitgame():
     pygame.quit()
@@ -64,6 +66,7 @@ def android(x, y):
 
 def print_apples(apple_x, apple_y, apple_r, apple_w, color):
     pygame.draw.circle(gameDisplay, color, (apple_x, apple_y), apple_r, apple_w)
+    #gameDisplay.blit(appleImg, (apple_x, apple_y))
 
 class Apple:
     def __init__(self,x,y,r,w,speed,color):
@@ -232,8 +235,6 @@ def game_loop():
                     count += 1
 
                     if isinstance(cur_apple, Reset_Apple):
-                        #print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-                        #print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
                         # Reset blocks
                         for j in range(len(blocks)):
                             blocks[j].reappear()
@@ -278,5 +279,4 @@ def game_loop():
         clock.tick(30)
 
         #update_cnt = "count = " + str(count)
-        #text.message_display(update_cnt);
-
+        #text.message_display(update_cnt)
