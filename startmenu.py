@@ -9,8 +9,6 @@ import text
 
 pygame.init()
 
-
-
 def game_intro():
 
     #Startmenu Background
@@ -23,11 +21,6 @@ def game_intro():
             if event.type == pygame.QUIT:
                 base.quitgame()
                 break
-        #Title:
-        largeText = pygame.font.Font('freesansbold.ttf', 115)
-        textSurf, textRect = text.text_objects("Fuck", largeText, colours.black)
-        textRect.center = (text.display_width/2, 50)
-        base.gameDisplay.blit(textSurf, textRect)
 
         #Start Menu Background Image
         reset_x = background_x % background_image.get_rect().width
