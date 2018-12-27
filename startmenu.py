@@ -30,7 +30,7 @@ def game_intro():
 
         #Start Menu Background Image
         base.gameDisplay.blit(startmenu_image, (background_x, 0))
-        background_x -= 2
+        background_x -= 7
 
         #Start Menu Buttons
         text.button(base.gameDisplay, "Start",300, 100, 200, 100, colours.lightgray, colours.gray, base.game_loop)
