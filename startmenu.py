@@ -11,7 +11,6 @@ pygame.init()
 
 startmenu_image = pygame.image.load("startmenu_background.jpg").convert()
 
-
 def game_intro():
 
     intro = True
