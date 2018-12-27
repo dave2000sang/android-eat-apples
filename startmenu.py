@@ -9,7 +9,7 @@ import text
 
 pygame.init()
 
-startmenu_image = pygame.image.load("start_menu.jpeg").convert()
+startmenu_image = pygame.image.load("startmenu_background.jpg").convert()
 
 def game_intro():
 
@@ -27,7 +27,7 @@ def game_intro():
         base.gameDisplay.blit(textSurf, textRect)
 
         #Start Menu Background Image
-        base.gameDisplay.fill(colours.white)
+        base.gameDisplay.blit(startmenu_image, (0, 0))
 
         #Start Menu Buttons
         text.button(base.gameDisplay, "Start",300, 100, 200, 100, colours.lightgray, colours.gray, base.game_loop)
