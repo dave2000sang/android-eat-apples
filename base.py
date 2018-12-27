@@ -100,7 +100,7 @@ def game_loop():
     #Constants for apples
     APPLE_X = random.randrange(0, display_width)
     APPLE_Y = -600
-    APPLE_SPEED = 20
+    APPLE_SPEED = 15
     APPLE_RADIUS = 20
     APPLE_WIDTH = 0
     APPLE_COLOR = red
@@ -127,10 +127,16 @@ def game_loop():
     #Time to release a new apple
     TIME_Apple = 20 + random.randrange(0, 10)
 
+    #interval to change speed by speedChange every changeSpeedInterval
+    initialInterval = 5
+    changeSpeedInterval = initialInterval
+    speedChange = 5
+
     for i in range(num_blocks):
         blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
 
     gameExit = False
+
 
     # while game is running
     while not gameExit:
@@ -176,9 +182,9 @@ def game_loop():
 
         #If TIME_Reset_Apple seconds have passed, add a new reset apple
         cur_time = time.time() - start_time
-        print "time: " + str(cur_time)
+        #print "time: " + str(cur_time)
 
-        print len(apples)
+        # print len(apples)
         if cur_time % TIME_Reset_Apple >= 0 and cur_time % TIME_Reset_Apple <= 0.1 and (not Insert_Reset_Already):
             temp_x = random.randrange(0, display_width)
             apples.append(Reset_Apple (temp_x, APPLE_Y, APPLE_RADIUS, APPLE_WIDTH, APPLE_SPEED, RESET_APPLE_COLOR))
@@ -200,7 +206,18 @@ def game_loop():
             cur_apple = apples[i]
 
             print_apples(cur_apple.x, cur_apple.y, cur_apple.r, cur_apple.w, cur_apple.color)
-            cur_apple.y += cur_apple.speed
+
+
+
+            # Increase speed of Apple every time you catch a multiple of 5.
+
+
+            if count == changeSpeedInterval:
+                changeSpeedInterval += initialInterval
+                APPLE_SPEED = APPLE_SPEED + speedChange
+
+            print APPLE_SPEED
+            cur_apple.y += APPLE_SPEED
 
             ##reset apple if falls out of screen
             #if cur_apple.y > display_height:
@@ -212,11 +229,11 @@ def game_loop():
             if cur_apple.y + cur_apple.r > androidY:
                 if cur_apple.x + cur_apple.r > androidX and cur_apple.x - cur_apple.r < androidX + android_width:
 
-                    count = count + 1
+                    count += 1
 
                     if isinstance(cur_apple, Reset_Apple):
-                        print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-                        print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+                        #print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+                        #print "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
                         # Reset blocks
                         for j in range(len(blocks)):
                             blocks[j].reappear()
@@ -256,9 +273,10 @@ def game_loop():
 
                 Insert_Apple = False
 
-            #update_cnt = "count = " + str(count)
-            #message_display(update_cnt);
 
-            pygame.display.update()
-            clock.tick(60)
+        pygame.display.update()
+        clock.tick(30)
+
+        #update_cnt = "count = " + str(count)
+        #text.message_display(update_cnt);
 
