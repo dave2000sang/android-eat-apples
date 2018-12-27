@@ -45,4 +45,4 @@ def game_intro():
         text.button(base.gameDisplay, "Quit", 300, 400, 200, 100, colours.lightgray, colours.gray, base.quitgame)
 
         pygame.display.update()
-        base.clock.tick(120)
+        base.clock.tick(45)
