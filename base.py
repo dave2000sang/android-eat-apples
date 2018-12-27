@@ -64,27 +64,23 @@ def pause():
 def android(x, y):
     gameDisplay.blit(androidImg, (x, y))
 
-def print_apples(apple_x, apple_y, apple_r, apple_w, color):
-    pygame.draw.circle(gameDisplay, color, (apple_x, apple_y), apple_r, apple_w)
-    #gameDisplay.blit(appleImg, (apple_x, apple_y))
+def print_apples(apple_x, apple_y, img):
+    #pygame.draw.circle(gameDisplay, color, (apple_x, apple_y), apple_r, apple_w)
+    gameDisplay.blit(img, (apple_x, apple_y))
 
 class Apple:
-    def __init__(self,x,y,r,w,speed,color):
+    def __init__(self,x,y,speed,img):
         self.x = x
         self.y = y
-        self.r = r
-        self.w = w
         self.speed = speed
-        self.color = color
+        self.img = img
 
 class Reset_Apple (Apple):
-    def __init__(self,x,y,r,w,speed,color):
+    def __init__(self,x,y,speed,img):
         self.x = x
         self.y = y
-        self.r = r
-        self.w = w
         self.speed = speed
-        self.color = color
+        self.img = img
 
 def print_blocks(b_x, b_y, width, height):
     pygame.draw.rect(gameDisplay, block_color, [b_x, b_y, width, height], 2)
@@ -100,18 +96,22 @@ def game_loop():
     velocity = 0
     count = 0
 
+    # Width and Height of apple sprite
+    apple_w = appleImg.get_rect().width
+    apple_h = appleImg.get_rect().height
+
     #Constants for apples
-    APPLE_X = random.randrange(0, display_width)
+    APPLE_X = random.randrange(0, display_width - apple_w)
     APPLE_Y = -600
     APPLE_SPEED = 15
     APPLE_RADIUS = 20
     APPLE_WIDTH = 0
-    APPLE_COLOR = red
-    RESET_APPLE_COLOR = green
+    #APPLE_COLOR = red
+    #RESET_APPLE_COLOR = green
 
     #apples list holds all apples
     apples = []
-    apples.append(Apple(APPLE_X,APPLE_Y,APPLE_RADIUS,APPLE_WIDTH,APPLE_SPEED,APPLE_COLOR))
+    apples.append(Apple(APPLE_X,APPLE_Y,APPLE_SPEED,appleImg))
 
     #floor blocks
     block_width = 1.5 * (2*APPLE_RADIUS)
@@ -189,16 +189,16 @@ def game_loop():
 
         # print len(apples)
         if cur_time % TIME_Reset_Apple >= 0 and cur_time % TIME_Reset_Apple <= 0.1 and (not Insert_Reset_Already):
-            temp_x = random.randrange(0, display_width)
-            apples.append(Reset_Apple (temp_x, APPLE_Y, APPLE_RADIUS, APPLE_WIDTH, APPLE_SPEED, RESET_APPLE_COLOR))
+            temp_x = random.randrange(0, display_width - apple_w)
+            apples.append(Reset_Apple (temp_x, APPLE_Y, APPLE_SPEED, ResetAppleImg))
             Insert_Reset_Already = True
 
         #TIME_Apple = 10
         #Insert a new regular apple (every TIME_Apple seconds have passed)
         if cur_time % TIME_Apple >= 0 and cur_time % TIME_Apple <= 0.1 and (not Insert_Apple):
-            temp_x = random.randrange(0, display_width)
+            temp_x = random.randrange(0, display_width - apple_w)
             temp_y = - random.randrange(0, display_width)
-            apples.append(Apple(temp_x,temp_y,APPLE_RADIUS, APPLE_WIDTH, APPLE_SPEED, APPLE_COLOR))
+            apples.append(Apple(temp_x,temp_y, APPLE_SPEED, appleImg))
             Insert_Apple = True
             TIME_Apple = 20 + random.randrange(0, 10)   # Make a new random apple
 
@@ -208,7 +208,7 @@ def game_loop():
         for i in range(len(apples)):
             cur_apple = apples[i]
 
-            print_apples(cur_apple.x, cur_apple.y, cur_apple.r, cur_apple.w, cur_apple.color)
+            print_apples(cur_apple.x, cur_apple.y, cur_apple.img)
 
 
 
@@ -222,15 +222,10 @@ def game_loop():
             print APPLE_SPEED
             cur_apple.y += APPLE_SPEED
 
-            ##reset apple if falls out of screen
-            #if cur_apple.y > display_height:
-            #    cur_apple.y = - cur_apple.y
-            #    cur_apple.x = random.randrange(0, display_width)
-
 
             #check collision between apple and android
-            if cur_apple.y + cur_apple.r > androidY:
-                if cur_apple.x + cur_apple.r > androidX and cur_apple.x - cur_apple.r < androidX + android_width:
+            if cur_apple.y + apple_h > androidY:
+                if cur_apple.x >= androidX and cur_apple.x <= androidX + android_width:
 
                     count += 1
 
@@ -243,23 +238,23 @@ def game_loop():
                         break
 
                     cur_apple.y = - cur_apple.y - random.randrange(0, display_width)
-                    cur_apple.x = random.randrange(0, display_width)
+                    cur_apple.x = random.randrange(0, display_width - apple_w)
                     Insert_Apple = False
 
             # When missed apple (apple passed android)
-            if cur_apple.y + cur_apple.r > androidY + android_height:
+            if cur_apple.y + apple_h > androidY + android_height:
                 hit_block = False
                 # Make disappear block with x coordinate
                 for k in range(len(blocks)):
                     cur_block = blocks[k]
 
-                    if cur_apple.x <= cur_block.x + cur_block.width and cur_apple.x >= cur_block.x and cur_block.visible:
+                    if cur_apple.x + apple_w/2 <= cur_block.x + cur_block.width and cur_apple.x + apple_w/2 >= cur_block.x and cur_block.visible:
                         cur_block.disappear()
                         hit_block = True
 
                         # Reset apple y coordinate
                         cur_apple.y = - cur_apple.y - random.randrange(0, display_width)
-                        cur_apple.x = random.randrange(0, display_width)
+                        cur_apple.x = random.randrange(0, display_width - apple_w)
                         break
 
                 # if pass through (no block disappear)
