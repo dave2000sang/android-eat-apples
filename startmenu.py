@@ -11,9 +11,11 @@ pygame.init()
 
 startmenu_image = pygame.image.load("startmenu_background.jpg").convert()
 
+
 def game_intro():
 
     intro = True
+    background_x = 0
 
     while intro:
         for event in pygame.event.get():
@@ -27,7 +29,8 @@ def game_intro():
         base.gameDisplay.blit(textSurf, textRect)
 
         #Start Menu Background Image
-        base.gameDisplay.blit(startmenu_image, (0, 0))
+        base.gameDisplay.blit(startmenu_image, (background_x, 0))
+        background_x -= 2
 
         #Start Menu Buttons
         text.button(base.gameDisplay, "Start",300, 100, 200, 100, colours.lightgray, colours.gray, base.game_loop)
