@@ -100,6 +100,9 @@ def game_loop():
     apple_w = appleImg.get_rect().width
     apple_h = appleImg.get_rect().height
 
+    print apple_w
+    print apple_h
+
     #Constants for apples
     APPLE_X = random.randrange(0, display_width - apple_w)
     APPLE_Y = -600
@@ -174,18 +177,18 @@ def game_loop():
         gameDisplay.fill(white)
         gameDisplay.blit(bg, (0, 0))
 
-        #Update android
+        # Update android
         android(androidX, androidY)
 
-        #Update/draw floor:
+        # Update/draw floor:
         for i in range(num_blocks):
             cur_block = blocks[i]
-            if cur_block.visible == True:
+            if cur_block.visible:
                 print_blocks(cur_block.x, cur_block.y, cur_block.width, cur_block.height)
 
-        #If TIME_Reset_Apple seconds have passed, add a new reset apple
+        # If TIME_Reset_Apple seconds have passed, add a new reset apple
         cur_time = time.time() - start_time
-        #print "time: " + str(cur_time)
+        # print "time: " + str(cur_time)
 
         # print len(apples)
         if cur_time % TIME_Reset_Apple >= 0 and cur_time % TIME_Reset_Apple <= 0.1 and (not Insert_Reset_Already):
@@ -193,8 +196,8 @@ def game_loop():
             apples.append(Reset_Apple (temp_x, APPLE_Y, APPLE_SPEED, ResetAppleImg))
             Insert_Reset_Already = True
 
-        #TIME_Apple = 10
-        #Insert a new regular apple (every TIME_Apple seconds have passed)
+        # TIME_Apple = 10
+        # Insert a new regular apple (every TIME_Apple seconds have passed)
         if cur_time % TIME_Apple >= 0 and cur_time % TIME_Apple <= 0.1 and (not Insert_Apple):
             temp_x = random.randrange(0, display_width - apple_w)
             temp_y = - random.randrange(0, display_width)
@@ -225,7 +228,7 @@ def game_loop():
 
             #check collision between apple and android
             if cur_apple.y + apple_h > androidY:
-                if cur_apple.x >= androidX and cur_apple.x <= androidX + android_width:
+                if cur_apple.x + apple_w >= androidX and cur_apple.x <= androidX + android_width:
 
                     count += 1
 
@@ -258,7 +261,11 @@ def game_loop():
                         break
 
                 # if pass through (no block disappear)
-                if hit_block == False:
+                #if hit_block == False:
+                #    game_over(count)
+                #    gameExit = True
+
+                if cur_apple.y + apple_h >= display_height:
                     game_over(count)
                     gameExit = True
 
@@ -266,6 +273,7 @@ def game_loop():
                 if isinstance(cur_apple, Reset_Apple):
                     del apples[i]
                     Insert_Reset_Already = False
+                    break
 
                 Insert_Apple = False
 
