@@ -125,15 +125,15 @@ def game_loop():
     # Measure Time Elapsed
     start_time = time.time()
 
-    # Flag to only insert one special apple at a time
-    Insert_Reset_Already = False
+    # Time to release a new Reset apple
     TIME_Reset_Apple = 15
+    TIME_Reset_increment = TIME_Reset_Apple
 
-    Insert_Apple = False
-    #Time to release a new apple
-    TIME_Apple = 20 + random.randrange(0, 10)
+    # Time to release a new apple
+    TIME_Apple = 20 + random.randrange(0, 5)
+    TIME_Apple_increment = 20
 
-    #interval to change speed by speedChange every changeSpeedInterval
+    # interval to change speed by speedChange every changeSpeedInterval
     initialInterval = 5
     changeSpeedInterval = initialInterval
     speedChange = 5
@@ -142,7 +142,6 @@ def game_loop():
         blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
 
     gameExit = False
-
 
     # while game is running
     while not gameExit:
@@ -161,10 +160,10 @@ def game_loop():
                 elif event.key == pygame.K_ESCAPE:
                     pause()
 
-        #for detecting face:
+        # for detecting face:
         coord, velocity = blyat.process_frame()
 
-        #Move android from detecting face movement
+        # Move android from detecting face movement
         if len(coord):
             androidX += velocity * -3
         if androidX < 0:
@@ -172,7 +171,7 @@ def game_loop():
         if androidX > display_width - android_width:
             androidX = display_width - android_width
 
-        #Display camera live streaming
+        # Display camera live streaming
         bg = pygame.image.load("blyatface.jpg")
         gameDisplay.fill(white)
         gameDisplay.blit(bg, (0, 0))
@@ -188,24 +187,24 @@ def game_loop():
 
         # If TIME_Reset_Apple seconds have passed, add a new reset apple
         cur_time = time.time() - start_time
-        # print "time: " + str(cur_time)
 
-        # print len(apples)
-        if cur_time % TIME_Reset_Apple >= 0 and cur_time % TIME_Reset_Apple <= 0.1 and (not Insert_Reset_Already):
+
+        print "time: " + str(cur_time)
+        print "Next time: " + str(TIME_Apple)
+        print len(apples)
+
+        # After Time_Reset_increment seconds passed, add a reset apple
+        if abs(cur_time - TIME_Reset_Apple) <= 0.05:
             temp_x = random.randrange(0, display_width - apple_w)
-            apples.append(Reset_Apple (temp_x, APPLE_Y, APPLE_SPEED, ResetAppleImg))
-            Insert_Reset_Already = True
+            apples.append(Reset_Apple(temp_x, APPLE_Y, APPLE_SPEED, ResetAppleImg))
+            TIME_Reset_Apple += TIME_Reset_increment
 
-        # TIME_Apple = 10
         # Insert a new regular apple (every TIME_Apple seconds have passed)
-        if cur_time % TIME_Apple >= 0 and cur_time % TIME_Apple <= 0.1 and (not Insert_Apple):
+        if abs(cur_time - TIME_Apple) <= 0.05:
             temp_x = random.randrange(0, display_width - apple_w)
             temp_y = - random.randrange(0, display_width)
             apples.append(Apple(temp_x,temp_y, APPLE_SPEED, appleImg))
-            Insert_Apple = True
-            TIME_Apple = 20 + random.randrange(0, 10)   # Make a new random apple
-
-
+            TIME_Apple += TIME_Apple_increment + random.randrange(0, 5)        # Make a new random apple
 
         # Query through and update apple(s) falling
         for i in range(len(apples)):
@@ -213,20 +212,16 @@ def game_loop():
 
             print_apples(cur_apple.x, cur_apple.y, cur_apple.img)
 
-
-
             # Increase speed of Apple every time you catch a multiple of 5.
-
-
             if count == changeSpeedInterval:
                 changeSpeedInterval += initialInterval
                 APPLE_SPEED = APPLE_SPEED + speedChange
 
-            print APPLE_SPEED
+            # print APPLE_SPEED
             cur_apple.y += APPLE_SPEED
 
 
-            #check collision between apple and android
+            # check collision between apple and android
             if cur_apple.y + apple_h > androidY:
                 if cur_apple.x + apple_w >= androidX and cur_apple.x <= androidX + android_width:
 
@@ -261,7 +256,7 @@ def game_loop():
                         break
 
                 # if pass through (no block disappear)
-                #if hit_block == False:
+                # if hit_block == False:
                 #    game_over(count)
                 #    gameExit = True
 
@@ -269,13 +264,11 @@ def game_loop():
                     game_over(count)
                     gameExit = True
 
-                #Check if current apple is a Reset_Apple, if it is, delete it.
+                # Check if current apple is a Reset_Apple, if it is, delete it.
                 if isinstance(cur_apple, Reset_Apple):
                     del apples[i]
-                    Insert_Reset_Already = False
                     break
 
-                Insert_Apple = False
 
 
         pygame.display.update()

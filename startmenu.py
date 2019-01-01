@@ -22,7 +22,7 @@ def game_intro():
                 base.quitgame()
                 break
 
-        #Start Menu Background Image
+        # Start Menu Background Image
         reset_x = background_x % background_image.get_rect().width
 
         base.gameDisplay.blit(background_image, (reset_x - background_image.get_rect().width, 0))
