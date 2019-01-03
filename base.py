@@ -273,13 +273,10 @@ def game_loop():
                     del apples[i]
                     break
 
-
-
         update_cnt = "Score: " + str(count)
         countSurf, countRect = text.text_objects(update_cnt, text.smallText, colours.black)
         countRect.center = (800 - countRect.width, 0 + countRect.height)
         gameDisplay.blit(countSurf, countRect)
-
 
         pygame.display.update()
         clock.tick(30)
