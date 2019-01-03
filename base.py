@@ -85,7 +85,7 @@ class Reset_Apple (Apple):
         self.img = img
 
 def print_blocks(b_x, b_y, width, height):
-    pygame.draw.rect(gameDisplay, block_color, [b_x, b_y, width, height], 2)
+    pygame.draw.rect(gameDisplay, block_color, [b_x, b_y, width, height], 0)
 
 def game_over(count):
     text.message_display("Game Over")
@@ -93,7 +93,7 @@ def game_over(count):
 
 def game_loop():
     androidX = (display_width * 0.4)
-    androidY = (display_height * 0.8)
+    androidY = (display_height * 0.8) - 20
 
     velocity = 0
     count = 0
@@ -119,8 +119,8 @@ def game_loop():
     apples.append(Apple(APPLE_X,APPLE_Y,APPLE_SPEED,appleImg))
 
     #floor blocks
-    block_width = 1.5 * (2*APPLE_RADIUS)
-    block_height = 20
+    block_width = 1.5 * (2*APPLE_RADIUS)    # 60
+    block_height = 20                       # 20
     num_blocks = int(math.ceil(display_width/block_width))
     blocks = []
 
@@ -140,6 +140,7 @@ def game_loop():
     changeSpeedInterval = initialInterval
     speedChange = 5
 
+    # Initiate blocks
     for i in range(num_blocks):
         blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
 
@@ -267,7 +268,7 @@ def game_loop():
                 #    game_over(count)
                 #    gameExit = True
 
-                if cur_apple.y + apple_h >= display_height:
+                if cur_apple.y >= display_height:
                     game_over(count)
                     gameExit = True
 
