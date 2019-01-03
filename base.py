@@ -92,6 +92,7 @@ def game_over(count):
     highscores.register_highscore(gameDisplay, count)
 
 def game_loop():
+    # Android starting position
     androidX = (display_width * 0.4)
     androidY = (display_height * 0.8) - 20
 
