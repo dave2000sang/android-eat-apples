@@ -269,7 +269,7 @@ def game_loop():
                 #    game_over(count)
                 #    gameExit = True
 
-                if cur_apple.y >= display_height:
+                if cur_apple.y > display_height:
                     game_over(count)
                     gameExit = True
 
