@@ -76,7 +76,9 @@ def process_frame():
 
     # write frame to image
     # cv2.imwrite("blyatface.jpg", frame)
-    cv2.imwrite("blyatface.jpg", cv2.resize(frame, None, fx=0.25, fy=0.25))
+    # cv2.imwrite("blyatface.jpg", cv2.resize(frame, None, fx=0.25, fy=0.25))
+    global face_img
+    face_img = cv2.resize(frame, None, fx=0.25, fy=0.25)
 
     # calculate velocity
     if len(cpQueue) > 1:

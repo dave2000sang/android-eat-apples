@@ -6,6 +6,7 @@ import math
 import highscores
 import colours
 import text
+import cv2
 from block import Block
 
 pygame.init()
@@ -177,7 +178,9 @@ def game_loop():
         gameDisplay.blit(background_image, (0, 0))
 
         # Display camera live streaming
-        bg = pygame.image.load("blyatface.jpg")
+        face_img = cv2.cvtColor(blyat.face_img, cv2.COLOR_BGR2RGB)
+        bg = pygame.image.frombuffer(face_img.tostring(), face_img.shape[1::-1], "RGB")
+
         gameDisplay.blit(bg, (0, 0))
 
         # Update android
