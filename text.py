@@ -34,7 +34,7 @@ def button(screen, msg, x, y, w, h, color, active_color, action):
             else:
                 action()
     else:
-        pygame.draw.rect(screen, color, (x, y , w, h), 0)
+        pygame.draw.rect(screen, color, (x, y, w, h), 0)
 
     pygame.draw.rect(screen, colours.black, (x, y, w, h), border)
     textSurf, textRect = text_objects(msg, smallText, colours.black)
