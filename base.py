@@ -28,6 +28,7 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('fuckblyat')
 clock = pygame.time.Clock()
 
+background_image = pygame.image.load("game_background.jpg")
 androidImg = pygame.image.load('fighterjet2.png')
 appleImg = pygame.image.load('apple.png')
 ResetAppleImg = pygame.image.load('ResetApple.png')
@@ -160,6 +161,7 @@ def game_loop():
                 elif event.key == pygame.K_ESCAPE:
                     pause()
 
+
         # for detecting face:
         coord, velocity = blyat.process_frame()
 
@@ -171,9 +173,11 @@ def game_loop():
         if androidX > display_width - android_width:
             androidX = display_width - android_width
 
+        # Game Background
+        gameDisplay.blit(background_image, (0, 0))
+
         # Display camera live streaming
         bg = pygame.image.load("blyatface.jpg")
-        gameDisplay.fill(white)
         gameDisplay.blit(bg, (0, 0))
 
         # Update android
