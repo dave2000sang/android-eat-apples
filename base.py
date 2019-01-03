@@ -165,7 +165,7 @@ def game_loop():
 
         # Move android from detecting face movement
         if len(coord):
-            androidX += velocity * -3
+            androidX += velocity * 3
         if androidX < 0:
             androidX = 0
         if androidX > display_width - android_width:
