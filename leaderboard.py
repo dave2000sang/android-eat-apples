@@ -2,21 +2,14 @@ import pygame
 import colours
 import text
 import startmenu
+import base
 
 pygame.init()
-
-customtext = pygame.font.Font('freesansbold.ttf', 20)
-
-def center_box(w, h):
-    box_x = (800 - w)/2
-    box_y = (600 - h)/2
-
-    return box_x, box_y
 
 def getkey(item):
     return int(item[0])
 
-def display_leaderboard(screen, file_name):
+def display_leaderboard():
     display = True
     box_height = 500
     box_width = 400
@@ -28,8 +21,8 @@ def display_leaderboard(screen, file_name):
                 quit()
                 break
 
-        file = open(file_name, 'r')
-        lines = file.readlines()[1:]        #lines is a list of lines of the file.
+        file = open('highscores.txt', 'r')
+        lines = file.readlines()[1:]        # lines is a list of lines of the file.
         scores = []
 
         for line in lines:
@@ -46,28 +39,28 @@ def display_leaderboard(screen, file_name):
         box = pygame.surface.Surface((box_width, box_height))
         box.fill(colours.lightgray)
 
-        #Leaderboard title
+        # Leaderboard title
         textSurf, textRect = text.text_objects("Leaderboard", text.smallText, colours.black)
         textRect.center = ((box_width/2), 50)
         box.blit(textSurf, textRect)
 
         for i, entry in enumerate(top_10):
 
-            #Position of names
-            nameSurf, nameRect = text.text_objects(entry[1], customtext, colours.black)
+            # Position of names
+            nameSurf, nameRect = text.text_objects(entry[1], text.smallText, colours.black)
             nameRect.left = 70 #CALCULATE THE SEPERATION LATER
             nameRect.centery = (30 * i + 100)
             box.blit(nameSurf, nameRect)
 
-            #Position of scores
-            scoreSurf, scoreRect = text.text_objects(entry[0], customtext, colours.black)
+            # Position of scores
+            scoreSurf, scoreRect = text.text_objects(entry[0], text.smallText, colours.black)
             scoreRect.right = (box_width - 70)
             scoreRect.centery = (30 * i + 100)
             box.blit(scoreSurf, scoreRect)
 
-        text.button(screen, "Back", 50, 500, 100, 50, colours.lightgray, colours.gray, startmenu.game_intro)
+        text.button(base.gameDisplay, "Back", 50, 500, 100, 50, colours.lightgray, colours.gray, startmenu.game_intro)
 
         pygame.draw.rect(box, colours.black, (0, 0, box_width, box_height), 3)
-        screen.blit(box, center_box(box_width, box_height))
+        base.gameDisplay.blit(box, text.center_box(box_width, box_height, base.display_width, base.display_height))
         pygame.display.update()
         pygame.time.Clock().tick(15)

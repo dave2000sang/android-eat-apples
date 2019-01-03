@@ -42,12 +42,13 @@ def get_highscore(file_name):
     return high_name, high_score
 
 def write_highscore(file_name, player_name, player_points):
+
     file = open(file_name, 'a')
     file.write ("\n" + player_name + "," + str(player_points))
     file.close()
 
 def inputbox(display, string_input):
-    #Inputbox Constants for Box
+    # Inputbox Constants for Box
     box_width = 600
     box_height = 150
     box_x = 100
@@ -107,7 +108,7 @@ def inputbox(display, string_input):
 
                 elif pressed_key == pygame.K_RETURN:
                     display_save(display)
-                    time.sleep(3)
+                    time.sleep(1.5)
                     return name
                     startmenu.game_intro()
 

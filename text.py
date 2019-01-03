@@ -6,11 +6,11 @@ import time
 
 pygame.init()
 
-#Display
+# Display
 display_width = 800
 display_height = 600
 
-#Text Fonts
+# Text Fonts
 smallText = pygame.font.Font("freesansbold.ttf", 20)
 
 def center_box(box_width, box_height, display_width, display_height):
@@ -22,8 +22,8 @@ def center_box(box_width, box_height, display_width, display_height):
 def button(screen, msg, x, y, w, h, color, active_color, action):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    #print(click)
-    border = 3 #Change Border Thickness
+    # print(click)
+    border = 3 # Change Border Thickness
 
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
         pygame.draw.rect(screen, active_color, (x, y, w, h), 0)
