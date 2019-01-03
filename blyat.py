@@ -2,14 +2,16 @@ import cv2
 import sys
 import collections
 
-def rescale_frame(frame, factor = 1.75):
+
+def rescale_frame(frame, factor=1.75):
     width = int(frame.shape[1] * factor)
     height = int(frame.shape[0] * factor)
-    return cv2.resize(frame, (width, height), interpolation = cv2.INTER_AREA)
+    return cv2.resize(frame, (width, height), interpolation=cv2.INTER_AREA)
+
 
 # Get user supplied values
-#imagePath = sys.argv[1]
-#cascPath = "haarcascade_frontalface_default.xml"
+# imagePath = sys.argv[1]
+# cascPath = "haarcascade_frontalface_default.xml"
 cascPath = "fml.xml"
 cascPath2 = "eyesblyat.xml"
 
@@ -29,6 +31,7 @@ cpQueue = collections.deque()
 lastFace = (800 / 2, 600 / 2, 30, 30)
 lastVelocity = 0
 
+
 def process_frame():
     global lastFace
     global lastVelocity
@@ -36,7 +39,9 @@ def process_frame():
     # Read the frame:
     ret, frame = videoCapture.read()
 
-    #frame = rescale_frame(frame)
+    frame = cv2.flip(frame, 1)
+
+    # frame = rescale_frame(frame)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.equalizeHist(gray)
 
@@ -46,12 +51,12 @@ def process_frame():
         scaleFactor=1.05,
         minNeighbors=6,
         minSize=(30, 30)
-        #flags = cv2.CV_HAAR_SCALE_IMAGE
+        # flags = cv2.CV_HAAR_SCALE_IMAGE
     )
 
     # Show faces recognized on picture
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Update position queue
     if len(faces):
@@ -70,7 +75,8 @@ def process_frame():
         cnt += 10
 
     # write frame to image
-    cv2.imwrite("blyatface.jpg", frame)
+    # cv2.imwrite("blyatface.jpg", frame)
+    cv2.imwrite("blyatface.jpg", cv2.resize(frame, None, fx=0.25, fy=0.25))
 
     # calculate velocity
     if len(cpQueue) > 1:
@@ -102,6 +108,7 @@ def process_frame():
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 '''
+
 
 def destroy():
     videoCapture.release()
