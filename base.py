@@ -100,8 +100,8 @@ def game_loop():
     apple_w = appleImg.get_rect().width
     apple_h = appleImg.get_rect().height
 
-    print apple_w
-    print apple_h
+    # print apple_w
+    # print apple_h
 
     #Constants for apples
     APPLE_X = random.randrange(0, display_width - apple_w)
@@ -150,7 +150,7 @@ def game_loop():
             if event.type == pygame.QUIT:
                 quitgame()
                 gameExit = True
-            #print(event)
+            # print(event)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
@@ -189,9 +189,9 @@ def game_loop():
         cur_time = time.time() - start_time
 
 
-        print "time: " + str(cur_time)
-        print "Next time: " + str(TIME_Apple)
-        print len(apples)
+        # print "time: " + str(cur_time)
+        # print "Next time: " + str(TIME_Apple)
+        # print len(apples)
 
         # After Time_Reset_increment seconds passed, add a reset apple
         if abs(cur_time - TIME_Reset_Apple) <= 0.05:
@@ -274,5 +274,5 @@ def game_loop():
         pygame.display.update()
         clock.tick(30)
 
-        #update_cnt = "count = " + str(count)
-        #text.message_display(update_cnt)
+        # update_cnt = "count = " + str(count)
+        # text.message_display(update_cnt)
