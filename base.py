@@ -271,8 +271,11 @@ def game_loop():
 
 
 
+        update_cnt = "Score: " + str(count)
+        countSurf, countRect = text.text_objects(update_cnt, text.smallText, colours.black)
+        countRect.center = (800 - countRect.width, 0 + countRect.height)
+        gameDisplay.blit(countSurf, countRect)
+
+
         pygame.display.update()
         clock.tick(30)
-
-        # update_cnt = "count = " + str(count)
-        # text.message_display(update_cnt)
