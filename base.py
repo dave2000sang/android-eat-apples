@@ -156,11 +156,11 @@ def game_loop():
             # print(event)
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
+                if event.key == pygame.K_ESCAPE:
                     game_over(count)
                     gameExit = True
 
-                elif event.key == pygame.K_ESCAPE:
+                elif event.key == pygame.K_p:
                     pause()
 
 
