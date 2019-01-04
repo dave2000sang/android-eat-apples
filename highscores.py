@@ -61,7 +61,10 @@ def inputbox(display, string_input):
     pygame.draw.rect(box, colours.black, (0,0, box_width, box_height), 5)
     titleSurf, titleRect = text.text_objects(string_input, text.smallText, colours.black)
     titleRect.center = (box_width / 2, 20)
+    textSurf, textRect = text.text_objects("Enter Your Name:", text.smallText, colours.black)
+    textRect.topleft = (50, 35)
     box.blit(titleSurf, titleRect)
+    box.blit(textSurf, textRect)
 
     def blink(screen):
         for color in [colours.black, colours.white]:

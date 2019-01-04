@@ -12,6 +12,7 @@ display_height = 600
 
 # Text Fonts
 smallText = pygame.font.Font("freesansbold.ttf", 20)
+largeText = pygame.font.Font("freesansbold.ttf", 50)
 
 def center_box(box_width, box_height, display_width, display_height):
     box_x = (display_width - box_width) / 2

@@ -7,6 +7,7 @@ import highscores
 import colours
 import text
 import cv2
+import base
 from block import Block
 
 pygame.init()
@@ -88,7 +89,6 @@ def print_blocks(b_x, b_y, width, height):
     pygame.draw.rect(gameDisplay, block_color, [b_x, b_y, width, height], 0)
 
 def game_over(count):
-    text.message_display("Game Over")
     highscores.register_highscore(gameDisplay, count)
 
 def game_loop():
