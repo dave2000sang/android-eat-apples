@@ -1,11 +1,11 @@
 import pygame
 import colours
 import text
-pygame.init()
 import base
 import startmenu
 import time
 
+pygame.init()
 
 def register_highscore(display, player_points):
     highscore_name, highscore_points = get_highscore('highscores.txt')
@@ -109,7 +109,7 @@ def inputbox(display, string_input):
                 elif pressed_key == pygame.K_RETURN:
                     display_save(display)
                     time.sleep(1.5)
-                    return name
+                    return name.strip()
                     startmenu.game_intro()
 
                 elif pressed_key == pygame.K_BACKSPACE: #backspace key
