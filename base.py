@@ -253,6 +253,7 @@ def game_loop():
                 for k in range(len(blocks)):
                     cur_block = blocks[k]
 
+                    # Why is it width/2
                     if cur_apple.x + apple_w/2 <= cur_block.x + cur_block.width and cur_apple.x + apple_w/2 >= cur_block.x and cur_block.visible:
                         cur_block.disappear()
                         hit_block = True
