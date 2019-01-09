@@ -104,7 +104,7 @@ def game_loop():
 
     # Width and Height of monster
     monster_width = monsterImg.get_rect().width
-    monster_height = monsterImg.get_rect.height
+    monster_height = monsterImg.get_rect().height
 
     # Constants for apples
     APPLE_X = random.randrange(0, display_width - apple_w)
