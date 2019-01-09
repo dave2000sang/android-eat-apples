@@ -1,6 +1,6 @@
 import pygame
 import random
-import blyat
+import facedetect
 import time
 import base
 import leaderboard

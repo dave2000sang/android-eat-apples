@@ -22,16 +22,12 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 block_color = (50, 7, 20)
 
-android_width = 100  # for fighterandroid2.png
-android_height = 100 # for fighterandroid2.png
-android_speed = 10
-
 gameDisplay = pygame.display.set_mode((display_width, display_height))
-pygame.display.set_caption('fuckblyat')
+pygame.display.set_caption('Apple Monster')
 clock = pygame.time.Clock()
 
 background_image = pygame.image.load("game_background.jpg")
-androidImg = pygame.image.load('fighterjet2.png')
+monsterImg = pygame.image.load('monster.png')
 appleImg = pygame.image.load('apple.png')
 ResetAppleImg = pygame.image.load('ResetApple.png')
 
@@ -64,8 +60,8 @@ def pause():
         clock.tick(5)
 
 
-def android(x, y):
-    gameDisplay.blit(androidImg, (x, y))
+def monster(x, y):
+    gameDisplay.blit(monsterImg, (x, y))
 
 def print_apples(apple_x, apple_y, img):
     #pygame.draw.circle(gameDisplay, color, (apple_x, apple_y), apple_r, apple_w)
@@ -92,9 +88,9 @@ def game_over(count):
     highscores.register_highscore(gameDisplay, count)
 
 def game_loop():
-    # Android starting position
-    androidX = (display_width * 0.4)
-    androidY = (display_height * 0.8) - 20
+    # Monster starting position
+    monsterX = (display_width * 0.4)
+    monsterY = (display_height * 0.8) - 20
 
     velocity = 0
     count = 0
@@ -106,20 +102,21 @@ def game_loop():
     # print apple_w
     # print apple_h
 
-    #Constants for apples
+    # Width and Height of monster
+    monster_width = monsterImg.get_rect().width
+    monster_height = monsterImg.get_rect.height
+
+    # Constants for apples
     APPLE_X = random.randrange(0, display_width - apple_w)
     APPLE_Y = -600
     APPLE_SPEED = 15
     APPLE_RADIUS = 20
-    APPLE_WIDTH = 0
-    #APPLE_COLOR = red
-    #RESET_APPLE_COLOR = green
 
-    #apples list holds all apples
+    # apples list holds all apples
     apples = []
     apples.append(Apple(APPLE_X,APPLE_Y,APPLE_SPEED,appleImg))
 
-    #floor blocks
+    # floor blocks
     block_width = 1.5 * (2*APPLE_RADIUS)    # 60
     block_height = 20                       # 20
     num_blocks = int(math.ceil(display_width/block_width))
@@ -143,7 +140,7 @@ def game_loop():
 
     # Initiate blocks
     for i in range(num_blocks):
-        blocks.append(Block(block_width, block_height, i*block_width, androidY + android_height))
+        blocks.append(Block(block_width, block_height, i*block_width, monsterY + monster_height))
 
     gameExit = False
 
@@ -170,11 +167,11 @@ def game_loop():
 
         # Move android from detecting face movement
         if len(coord):
-            androidX += velocity * 3
-        if androidX < 0:
-            androidX = 0
-        if androidX > display_width - android_width:
-            androidX = display_width - android_width
+            monsterX += velocity * 3
+        if monsterX < 0:
+            monsterX = 0
+        if monsterX > display_width - monster_width:
+            monsterX = display_width - monster_width
 
         # Game Background
         gameDisplay.blit(background_image, (0, 0))
@@ -185,8 +182,8 @@ def game_loop():
 
         gameDisplay.blit(bg, (0, 0))
 
-        # Update android
-        android(androidX, androidY)
+        # Update monster
+        monster(monsterX, monsterY)
 
         # Update/draw floor:
         for i in range(num_blocks):
@@ -230,9 +227,9 @@ def game_loop():
             cur_apple.y += APPLE_SPEED
 
 
-            # check collision between apple and android
-            if cur_apple.y + apple_h > androidY:
-                if cur_apple.x + apple_w >= androidX and cur_apple.x <= androidX + android_width:
+            # check collision between apple and monster
+            if cur_apple.y + apple_h > monsterY:
+                if cur_apple.x + apple_w >= monsterX and cur_apple.x <= monsterX + monster_width:
 
                     count += 1
 
@@ -248,9 +245,10 @@ def game_loop():
                     cur_apple.x = random.randrange(0, display_width - apple_w)
                     Insert_Apple = False
 
-            # When missed apple (apple passed android)
-            if cur_apple.y + apple_h > androidY + android_height:
+            # When missed apple (apple passed monster)
+            if cur_apple.y + apple_h > monsterY + monster_height:
                 hit_block = False
+
                 # Make disappear block with x coordinate
                 for k in range(len(blocks)):
                     cur_block = blocks[k]
