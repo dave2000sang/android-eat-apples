@@ -13,11 +13,9 @@ def rescale_frame(frame, factor=1.75):
 # imagePath = sys.argv[1]
 # cascPath = "haarcascade_frontalface_default.xml"
 cascPath = "fml.xml"
-cascPath2 = "eyesblyat.xml"
 
 # Create the haar cascade
 faceCascade = cv2.CascadeClassifier(cascPath)
-eyesCascade = cv2.CascadeClassifier(cascPath2)
 
 # Initiate video capturing
 videoCapture = cv2.VideoCapture(0)
@@ -83,32 +81,6 @@ def process_frame():
         lastVelocity = (cpQueue[len(cpQueue) - 1][0] - cpQueue[len(cpQueue) - 2][0])
 
     return faces, lastVelocity
-
-    # print("Found {0} faces!".format(len(faces)))
-
-    # Draw a rectangle around the faces
-    '''
-    
-        print("{0} {1}".format(x, y))
-        
-        #Crop faces to recognize eyes
-        cropFace = frame[y:y+h, x:x+w]
-        grayEyes = cv2.cvtColor(cropFace, cv2.COLOR_BGR2GRAY)
-        grayEyes = cv2.equalizeHist(grayEyes);
-        eyes = eyesCascade.detectMultiScale(
-            grayEyes,
-            scaleFactor=1.1,
-            minNeighbors=5,
-            minSize=(30, 30)
-        )
-        for (x1, y1, w1, h1) in eyes:
-            cv2.rectangle(frame, (x + x1, y + y1), (x + x1 + w1, y + y1 + h1), (255, 0, 0), 2)
-
-    cv2.imshow("fuck shit", frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-'''
-
 
 def destroy():
     videoCapture.release()
