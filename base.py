@@ -1,6 +1,6 @@
 import pygame
 import random
-import blyat
+import face_detect
 import time
 import math
 import highscores
@@ -163,7 +163,7 @@ def game_loop():
 
 
         # for detecting face:
-        coord, velocity = blyat.process_frame()
+        coord, velocity = face_detect.process_frame()
 
         # Move android from detecting face movement
         if len(coord):
@@ -177,7 +177,7 @@ def game_loop():
         gameDisplay.blit(background_image, (0, 0))
 
         # Display camera live streaming
-        face_img = cv2.cvtColor(blyat.face_img, cv2.COLOR_BGR2RGB)
+        face_img = cv2.cvtColor(face_detect.face_img, cv2.COLOR_BGR2RGB)
         bg = pygame.image.frombuffer(face_img.tostring(), face_img.shape[1::-1], "RGB")
 
         gameDisplay.blit(bg, (0, 0))
