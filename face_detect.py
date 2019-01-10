@@ -12,7 +12,7 @@ def rescale_frame(frame, factor=1.75):
 # Get user supplied values
 # imagePath = sys.argv[1]
 # cascPath = "haarcascade_frontalface_default.xml"
-cascPath = "fml.xml"
+cascPath = "face_cascade.xml"
 
 # Create the haar cascade
 faceCascade = cv2.CascadeClassifier(cascPath)
