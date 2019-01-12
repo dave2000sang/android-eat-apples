@@ -7,7 +7,6 @@ import highscores
 import colours
 import text
 import cv2
-import base
 from block import Block
 
 pygame.init()
