@@ -10,7 +10,6 @@
 ## Possible Future Extension Ideas:
 - Improve efficiency & effectiveness of facial recognition (faster and more accurate)
 - Implement some kind of pattern to drop the apples (maybe add song beat analyser and drop apples based on beats in a mp3 file)
-- ...
 
 ## Example pictures
 ![img](https://github.com/dave2000sang/android-eat-apples/blob/master/README%20examples/examplePic.png)
