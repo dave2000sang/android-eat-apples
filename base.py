@@ -22,7 +22,7 @@ blue = (0, 0, 255)
 block_color = (50, 7, 20)
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
-pygame.display.set_caption('Android Eat Appes')
+pygame.display.set_caption('Android Eat Apples')
 clock = pygame.time.Clock()
 
 background_image = pygame.image.load("game_background.jpg")
