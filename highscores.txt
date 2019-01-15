@@ -1,15 +1,7 @@
 # Highscore Leaderboard
-fdsadf,0
 rekt,11
-david bitch,31
+david,31
 very unlucky ,1
-david,4
-df,1
-dd,7
-adslkfjaklds;f,0
-pe nis,12
-adjaskfasdflja,5
 misha,37
 Grace K.,18
-dd,1
 david,5
