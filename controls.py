@@ -31,7 +31,7 @@ def instructions():
         box.blit(titleSurf, titleRect)
 
         # Instructions Text
-        instructSurf, instructRect = text.text_objects("Move your face to catch!", text.smallText, colours.black)
+        instructSurf, instructRect = text.text_objects("Move your face to catch", text.smallText, colours.black)
         instructSurf2, instructRect2 = text.text_objects("the falling apples for points!", text.smallText, colours.black)
         instructRect.center = ((box_width/2), 125)
         instructRect2.center = ((box_width/2), 175)
