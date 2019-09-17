@@ -13,7 +13,7 @@ blue = (0, 0, 255)
 jet_width = 208
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
-pygame.display.set_caption('fuckblyat')
+pygame.display.set_caption('android-eat-apples')
 clock = pygame.time.Clock()
 
 jetImg = pygame.image.load('fighterjet.png')
